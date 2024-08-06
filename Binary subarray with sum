@@ -1,0 +1,58 @@
+1.Brute approach(hashmap)
+
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) 
+    {
+        unordered_map<int, int>mp;
+        int count=0;
+        int sum=0;
+        mp[0]=1;
+        for(auto num:nums)
+        {
+           sum=sum+num;
+           if(mp.find(sum-goal)!=mp.end())
+           {
+              count=count+mp[sum-goal];
+           }
+           mp[sum]++;
+        }
+        return count;
+    }
+};
+
+
+2. Optimal approach(sliding window)
+
+class Solution 
+{
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) 
+    {
+       return mainfunc(nums , goal)-mainfunc(nums , goal-1);
+    }
+
+    int mainfunc(vector<int>&nums , int goal)
+    {
+       if(goal<0)return 0;
+       int left=0;
+       int right=0;
+       int n=nums.size();
+       int sum=0;
+       int cnt=0;
+       while(right<n)
+       {
+          sum=sum+nums[right];
+          while(sum>goal)
+          {
+            sum-=nums[left];
+            left++;
+          }
+          cnt=cnt+(right-left+1);
+          right++;
+       }
+       return cnt;
+    }
+};
+
+
