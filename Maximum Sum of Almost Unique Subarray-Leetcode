@@ -1,0 +1,38 @@
+Q-You are given an integer array nums and two positive integers m and k. Return the maximum sum out of all almost unique subarrays of length k of nums. If no such subarray exists, return 0.
+ A subarray of nums is almost unique if it contains at least m distinct elements. A subarray is a contiguous non-empty sequence of elements within an array.
+
+class Solution 
+{
+public:
+    long long maxSum(vector<int>& nums, int m, int k) {
+        int left = 0;
+        int n = nums.size();
+        unordered_map<int, int> mp;
+        long long curr_sum = 0;
+        long long max_sum = 0;
+
+        for (int right = 0; right < n; ++right) 
+        {
+            mp[nums[right]]++;
+            curr_sum += nums[right];
+
+            // Maintain the window size
+            if ((right - left + 1) > k) 
+            {
+                mp[nums[left]]--;
+                if (mp[nums[left]] == 0) {
+                    mp.erase(nums[left]);
+                }
+                curr_sum -= nums[left];
+                left++;
+            }
+
+            // Check the conditions for almost unique subarray
+            if ((right - left + 1) == k && mp.size() >= m) {
+                max_sum = max(max_sum, curr_sum);
+            }
+        }
+
+        return max_sum;
+    }
+};
