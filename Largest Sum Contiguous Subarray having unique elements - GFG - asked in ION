@@ -1,3 +1,5 @@
+Q.Given an array arr[] of N positive integers, the task is to find the subarray having maximum sum among all subarrays having unique elements and print its sum. 
+
 1. Brute force
 
 int maxSumSubarray(vector<int>arr , int n)
@@ -24,7 +26,7 @@ int maxSumSubarray(vector<int>arr , int n)
     return result;
 }
 
-2.Sliding window
+2.Sliding window(Optimal approach)
 
 int maxSumSubarray(vector<int>arr , int n)
 {
