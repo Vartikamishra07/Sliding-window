@@ -6,19 +6,18 @@ class Solution
 public:
     long long maxSum(vector<int>& nums, int m, int k) {
         int left = 0;
+        int right = 0;
         int n = nums.size();
         unordered_map<int, int> mp;
         long long curr_sum = 0;
         long long max_sum = 0;
 
-        for (int right = 0; right < n; ++right) 
-        {
+        while (right < n) {
             mp[nums[right]]++;
             curr_sum += nums[right];
 
             // Maintain the window size
-            if ((right - left + 1) > k) 
-            {
+            if (right - left + 1 > k) {
                 mp[nums[left]]--;
                 if (mp[nums[left]] == 0) {
                     mp.erase(nums[left]);
@@ -28,11 +27,14 @@ public:
             }
 
             // Check the conditions for almost unique subarray
-            if ((right - left + 1) == k && mp.size() >= m) {
+            if (right - left + 1 == k && mp.size() >= m) {
                 max_sum = max(max_sum, curr_sum);
             }
+
+            right++;
         }
 
         return max_sum;
     }
 };
+
