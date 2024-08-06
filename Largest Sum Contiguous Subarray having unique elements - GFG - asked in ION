@@ -1,0 +1,64 @@
+1. Brute force
+
+int maxSumSubarray(vector<int>arr , int n)
+{
+    int max_sum=0;
+    unordered_map<int,int>mp;
+    for(int i=0;i<n;i++)
+    {
+        int current_sum=0;
+        for(int j=i;j<n;j++)
+        {
+            mp[arr[j]]++;
+            sum+=arr[j];
+            if( mp.size()==(j-i+1) )
+            {
+                result=max(result , sum);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+2.Sliding window
+
+int maxSumSubarray(vector<int>arr , int n)
+{
+    unordered_map<int , int>mp;
+    int left=0;
+    int right=0;
+    int max_sum=0;
+    int curr_sum=0;
+    while(right<n)
+    {
+        //Add the current element to the window
+        mp[arr[right]]++;
+        curr_Sum+=arr[right];
+        
+        //If the current window has duplicate elements then shrink the window
+        while(mp.size()<(right-left+1))
+        {
+            mp[arr[left]]--;
+            if(mp[arr[left]]==0)
+            {
+                mp.erase(arr[left]);
+            }
+            curr_Sum-=arr[left];
+            left++;
+        }
+        
+        //Update the maximum sum if the current window is valid
+        if(mp.size()==(right-left+1))
+        {
+            max_sum=max(max_sum,curr_sum);
+        }
+        
+        //Move the right pointer to expand the window
+        right++;
+    }
+    return max_Sum;
+}
