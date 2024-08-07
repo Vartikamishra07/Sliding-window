@@ -17,7 +17,7 @@ public:
             curr_sum += nums[right];
 
             // Maintain the window size
-            if (right - left + 1 > k) {
+            while(right - left + 1 > k) {
                 mp[nums[left]]--;
                 if (mp[nums[left]] == 0) {
                     mp.erase(nums[left]);
