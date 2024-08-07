@@ -17,10 +17,10 @@ public:
         int n=nums.size();
         while(right<n)
         {
-           sum= sum + nums[right]%2;
+           sum= sum + (nums[right]%2);
            while(sum>k)
            {
-             sum = sum - nums[left]%2;
+             sum = sum - (nums[left]%2);
              left++;
            }
            cnt=cnt+(right-left+1);
